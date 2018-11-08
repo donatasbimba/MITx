@@ -65,13 +65,14 @@ def compPlayHand(hand, wordList, n):
     """
     # Keep track of the total score
     totalScore = 0
+    play_hand = hand.copy()
     # As long as there are still letters left in the hand:
-    while (calculateHandlen(hand) > 0) :
+    while (calculateHandlen(play_hand) > 0) :
         # Display the hand
         print("Current Hand: ", end=' ')
-        displayHand(hand)
+        displayHand(play_hand)
         # computer's word
-        word = compChooseWord(hand, wordList, n)
+        word = compChooseWord(play_hand, wordList, n)
         # If the input is a single period:
         if word == None:
             # End the game (break out of the loop)
@@ -80,7 +81,7 @@ def compPlayHand(hand, wordList, n):
         # Otherwise (the input is not a single period):
         else :
             # If the word is not valid:
-            if (not isValidWord(word, hand, wordList)) :
+            if (not isValidWord(word, play_hand, wordList)) :
                 print('This is a terrible error! I need to check my own code!')
                 break
             # Otherwise (the word is valid):
@@ -90,7 +91,7 @@ def compPlayHand(hand, wordList, n):
                 totalScore += score
                 print('"' + word + '" earned ' + str(score) + ' points. Total: ' + str(totalScore) + ' points')              
                 # Update hand and show the updated hand to the user
-                hand = updateHand(hand, word)
+                play_hand = updateHand(play_hand, word)
                 print()
     # Game is over (user entered a '.' or ran out of letters), so tell user the total score
     print('Total score: ' + str(totalScore) + ' points.')
